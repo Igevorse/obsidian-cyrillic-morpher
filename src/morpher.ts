@@ -15,10 +15,12 @@ export class CyrillicMorpher implements Morpher {
 	}
 
 	async generateCases(string: string, plural = false): Promise<string[]> {
-		const morpher = new ws3Morpher({
+		const client = new ws3Morpher({
 			token: this.settings.morpherApiKey,
 		});
-		const result = await morpher.russian.declension(string);
+		let morpher = client[this.settings.morpherLanguage];
+
+		const result = await morpher.declension(string);
 		// TODO: move to settings
 		const cases = [
 			'accusative',

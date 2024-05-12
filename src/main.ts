@@ -6,6 +6,7 @@ import { CyrillicMorperSettingTab } from './settings_tab';
 // Remember to rename these classes and interfaces!
 const DEFAULT_SETTINGS: CyrillicMorperSettings = {
 	morpherApiKey: null,
+	morpherLanguage: 'russian'
 };
 
 export default class ObsidianCyrillicMorper extends Plugin {

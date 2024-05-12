@@ -34,5 +34,18 @@ export class CyrillicMorperSettingTab extends PluginSettingTab {
 						await this.plugin.saveSettings();
 					})
 			);
+
+		new Setting(containerEl)
+			.setName('Language')
+			.addDropdown(dropDown => {
+				dropDown.addOption('qazaq', 'Qazaq');
+				dropDown.addOption('russian', 'Russian');
+				dropDown.addOption('ukrainian', 'Ukrainian');
+				dropDown.setValue(this.plugin.settings.morpherLanguage || 'russian')
+				dropDown.onChange(async (value) =>	{
+					this.plugin.settings.morpherLanguage = value;
+					await this.plugin.saveSettings();
+				})
+			})
 	}
 }
