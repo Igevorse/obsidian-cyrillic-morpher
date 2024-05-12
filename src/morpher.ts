@@ -8,17 +8,17 @@ interface Morpher {
 }
 
 export class CyrillicMorpher implements Morpher {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	morpher: any;
+	settings: CyrillicMorperSettings;
 
 	constructor(settings: CyrillicMorperSettings) {
-		this.morpher = new ws3Morpher({
-			token: settings.morpherApiKey,
-		});
+		this.settings = settings;
 	}
 
 	async generateCases(string: string, plural = false): Promise<string[]> {
-		const result = await this.morpher.russian.declension(string);
+		const morpher = new ws3Morpher({
+			token: this.settings.morpherApiKey,
+		});
+		const result = await morpher.russian.declension(string);
 		// TODO: move to settings
 		const cases = [
 			'accusative',
