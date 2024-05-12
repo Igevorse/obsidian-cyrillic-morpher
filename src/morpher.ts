@@ -37,6 +37,6 @@ export class CyrillicMorpher implements Morpher {
 				})
 			);
 		}
-		return aliases;
+		return [...new Set<string>(aliases)];
 	}
 }
