@@ -36,13 +36,24 @@ export class CyrillicMorpher implements Morpher {
 		}
 
 		// TODO: move to settings
-		const cases = [
+		let cases = [
 			'accusative',
 			'dative',
 			'genitive',
 			'instrumental',
-			'prepositional',
 		];
+		if (this.settings.morpherLanguage === 'qazaq') {
+			cases.push('locative');
+			cases.push('ablative');
+		}
+		else if (this.settings.morpherLanguage === 'ukrainian') {
+			cases.push('prepositional');
+			cases.push('vocative');
+		}
+		else if (this.settings.morpherLanguage === 'russian') {
+			cases.push('prepositional');
+		}
+
 		let aliases = cases.map((caseName) => {
 			return result[caseName];
 		});
