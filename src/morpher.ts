@@ -1,3 +1,4 @@
+import { Notice } from 'obsidian';
 import { CyrillicMorperSettings } from './settings';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -20,7 +21,20 @@ export class CyrillicMorpher implements Morpher {
 		});
 		let morpher = client[this.settings.morpherLanguage];
 
-		const result = await morpher.declension(string);
+		let result: any = null;
+		try {
+			result = await morpher.declension(string);
+		}
+		catch(e) {
+			if (e.message === 'Failed to fetch') {
+				new Notice('Please check if your token is correct!');
+			}
+			else {
+				new Notice(e.message);
+			}
+			return [];
+		}
+
 		// TODO: move to settings
 		const cases = [
 			'accusative',
