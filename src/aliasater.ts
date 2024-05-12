@@ -47,6 +47,9 @@ export class CyrillicGenerator implements CyrillicAliasater {
 		const filename = ctx.file?.basename;
 		const cases = await this.morpher.generateCases(filename, plural);
 		const newAliases = cases.filter((alias) => alias !== filename);
+		if (newAliases.length === 0) {
+			return;
+		}
 		// update frontmatter aliases
 		await this.app.fileManager.processFrontMatter(ctx.file, (frontmatter) => {
 			const mergedAliases = mergeAliases(
